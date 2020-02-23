@@ -3,5 +3,5 @@
   <span *ngIf="country?.isFetchedFromState">State</span>
   <span *ngIf="!country?.isFetchedFromState">Backend</span>
 
-  <ng-content></ng-content>
+  <button (click)="onUpdateCountry($event)">Update population to 100</button>
 </p>

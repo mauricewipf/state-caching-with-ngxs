@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
   countries$: Observable<Country[]>;
   countryCodes$: Observable<string[]>;
   latestFetchedCountry$: Observable<Country>;
-  private tempLatestFetchedCountry: string;
 
   constructor(
     private store: Store
@@ -27,13 +26,12 @@ export class AppComponent implements OnInit {
   }
 
   countryCodeClicked(alpha2Code: string) {
-    this.tempLatestFetchedCountry = alpha2Code;
     this.store.dispatch(new GetCountryById(alpha2Code));
     this.latestFetchedCountry$ = this.store.select(CountriesState.getCountryById(alpha2Code));
   }
 
-  updateCountry() {
-    this.store.dispatch(new UpdateCountry(this.tempLatestFetchedCountry, { population: 100 }));
+  updateCountry(country: Country) {
+    this.store.dispatch(new UpdateCountry(country.alpha2Code, { population: 100 }));
   }
 
 }
