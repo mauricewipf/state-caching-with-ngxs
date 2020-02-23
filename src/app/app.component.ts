@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { CountriesState, GetCountryCodes, GetCountryById } from './countries-state';
+import { CountriesState, GetCountryCodes, GetCountryById, UpdateCountry } from './countries-state';
 import { Country } from './country';
 import { Observable } from 'rxjs';
 
@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   countries$: Observable<Country[]>;
   countryCodes$: Observable<string[]>;
   latestFetchedCountry$: Observable<Country>;
+  private tempLatestFetchedCountry: string;
 
   constructor(
     private store: Store
@@ -26,7 +27,13 @@ export class AppComponent implements OnInit {
   }
 
   countryCodeClicked(alpha2Code: string) {
+    this.tempLatestFetchedCountry = alpha2Code;
     this.store.dispatch(new GetCountryById(alpha2Code));
     this.latestFetchedCountry$ = this.store.select(CountriesState.getCountryById(alpha2Code));
   }
+
+  updateCountry() {
+    this.store.dispatch(new UpdateCountry(this.tempLatestFetchedCountry, { population: 100 }));
+  }
+
 }

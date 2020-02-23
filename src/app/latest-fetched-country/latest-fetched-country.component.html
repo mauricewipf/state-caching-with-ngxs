@@ -2,4 +2,6 @@
   Latest fetched country: {{country?.name}} — fetched from
   <span *ngIf="country?.isFetchedFromState">State</span>
   <span *ngIf="!country?.isFetchedFromState">Backend</span>
+
+  <ng-content></ng-content>
 </p>

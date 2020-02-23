@@ -7,7 +7,9 @@
 <app-countrycode-list [countryCodes]="(countryCodes$ | async)" (countryCodeClicked)="countryCodeClicked($event)">
 </app-countrycode-list>
 
-<app-latest-fetched-country [country]="(latestFetchedCountry$ | async)"></app-latest-fetched-country>
+<app-latest-fetched-country [country]="(latestFetchedCountry$ | async)">
+  <button (click)="updateCountry()">Update population to 100</button>
+</app-latest-fetched-country>
 
 <app-country-list [countries]="(countries$ | async)">
 </app-country-list>

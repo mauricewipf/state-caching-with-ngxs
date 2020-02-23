@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { Country } from './country';
 
 @Injectable({
@@ -23,5 +23,12 @@ export class CountriesService {
 
   getCountryById(alpha2Code: string): Observable<Country> {
     return this.http.get<Country>(`${CountriesService.URL}/alpha/${alpha2Code}`);
+  }
+
+  updateCountry(country: Country): Observable<any> {
+    const res = new HttpResponse({
+      status: 200
+    });
+    return of(res);
   }
 }

@@ -27,6 +27,15 @@ export class GetCountryCodes {
   }
 }
 
+export class UpdateCountry {
+  static readonly type = '[Countries] Update a country';
+  constructor(
+    public alpha2Code: string,
+    public newValue: { [key: string]: any }
+  ) {
+  }
+}
+
 @State<CountriesStateModel>({
   name: 'countries',
   defaults: {
@@ -62,7 +71,7 @@ export class CountriesState {
   getCountries(
     { getState, patchState }: StateContext<CountriesStateModel>,
     { }: GetCountries
-  ): Observable<Country[]> {
+  ): Observable<any> {
     const countries = getState().countries;
 
     if (!!countries && Object.entries(countries).length > 0 && countries.constructor === Object) {
@@ -86,7 +95,7 @@ export class CountriesState {
   getCountryById(
     { getState, patchState }: StateContext<CountriesStateModel>,
     { id }: GetCountryById
-  ): Observable<Country> {
+  ): Observable<any> {
     const countries = getState().countries;
 
     if (!!countries && !!countries[id]) {
@@ -139,4 +148,24 @@ export class CountriesState {
     );
   }
 
+  @Action(UpdateCountry)
+  async updateCountry(
+    { getState, patchState, dispatch }: StateContext<CountriesStateModel>,
+    { alpha2Code, newValue }: UpdateCountry
+  ) {
+    let country: Country;
+
+    await dispatch(new GetCountryById(alpha2Code)).toPromise().then(() => {
+      country = getState().countries[alpha2Code];
+    });
+
+    const key = Object.keys(newValue)[0];
+    const value = Object.values(newValue)[0];
+    country[key] = value;
+
+    return this.countriesService.updateCountry(country).pipe(
+      tap(() => patchState({ [alpha2Code]: country }))
+    );
+
+  }
 }
