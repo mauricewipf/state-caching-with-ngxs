@@ -90,6 +90,15 @@ export class ProductsState {
     const products = getState().products;
 
     if (!!products && !!products[id]) {
+      patchState({
+        products: {
+          ...products,
+          [id]: {
+            ...products[id],
+            isFetchedFromState: true
+          }
+        }
+      });
       return;
     }
 
@@ -98,7 +107,10 @@ export class ProductsState {
         patchState({
           products: {
             ...products,
-            [id]: product,
+            [id]: {
+              ...product,
+              isFetchedFromState: false
+            },
           }
         });
       })

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit {
   products$: Observable<Product[]>;
   countryCodes$: Observable<string[]>;
+  latestFetchedCountry$: Observable<Product>;
 
   constructor(
     private store: Store
@@ -26,5 +27,6 @@ export class AppComponent implements OnInit {
 
   countryCodeClicked(alpha2Code: string) {
     this.store.dispatch(new GetProductById(alpha2Code));
+    this.latestFetchedCountry$ = this.store.select(ProductsState.getProductById(alpha2Code));
   }
 }

@@ -1,0 +1,5 @@
+<p *ngIf="country">
+  Latest fetched country: {{country?.name}} — fetched from
+  <span *ngIf="country?.isFetchedFromState">State</span>
+  <span *ngIf="!country?.isFetchedFromState">Backend</span>
+</p>

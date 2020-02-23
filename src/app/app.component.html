@@ -7,6 +7,8 @@
 <app-countrycode-list [countryCodes]="(countryCodes$ | async)" (countryCodeClicked)="countryCodeClicked($event)">
 </app-countrycode-list>
 
+<app-latest-fetched-country [country]="(latestFetchedCountry$ | async)"></app-latest-fetched-country>
+
 <app-product-list [products]="(products$ | async)"></app-product-list>
 
 <router-outlet></router-outlet>
