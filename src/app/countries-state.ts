@@ -95,7 +95,7 @@ export class CountriesState {
 
   @Action(GetCountryById)
   getCountryById(
-    { getState, setState }: StateContext<CountriesStateModel>,
+    { getState, patchState, setState }: StateContext<CountriesStateModel>,
     { id }: GetCountryById
   ): Observable<any> {
     const countries = getState().countries;
