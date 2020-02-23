@@ -1,0 +1,7 @@
+<div *ngFor="let product of (products$ | async)">
+  <h1>{{ product?.name }}</h1>
+  <span>{{ product?.region }}</span>
+  <p>
+    Population: {{ product?.population }}
+  </p>
+</div>
