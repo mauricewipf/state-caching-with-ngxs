@@ -17,6 +17,10 @@ export class ProductsService {
     return this.http.get<Product[]>(`${ProductsService.URL}`);
   }
 
+  getCountryCodes(): Observable<any> {
+    return this.http.get(`${ProductsService.URL}/all?fields=alpha2Code`);
+  }
+
   getProductById(alpha2Code: string): Observable<Product> {
     return this.http.get<Product>(`${ProductsService.URL}/alpha/${alpha2Code}`);
   }

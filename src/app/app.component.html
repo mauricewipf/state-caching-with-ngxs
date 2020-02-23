@@ -6,4 +6,8 @@
 
 <app-product-list [products]="(products$ | async)"></app-product-list>
 
+<span *ngFor="let countryCode of (countryCodes$ | async)">
+  {{countryCode}}
+</span>
+
 <router-outlet></router-outlet>
