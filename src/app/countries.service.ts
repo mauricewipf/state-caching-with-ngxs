@@ -26,8 +26,10 @@ export class CountriesService {
   }
 
   updateCountry(country: Country): Observable<any> {
+
     const res = new HttpResponse({
-      status: 200
+      status: 200,
+      body: country
     });
     return of(res);
   }

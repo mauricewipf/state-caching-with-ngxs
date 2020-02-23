@@ -3,6 +3,7 @@ import { CountriesService } from './countries.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Country } from './country';
+import { HttpResponse } from '@angular/common/http';
 
 export class CountriesStateModel {
   countries: { [key: string]: Country };
@@ -159,12 +160,11 @@ export class CountriesState {
       country = getState().countries[alpha2Code];
     });
 
-    const key = Object.keys(newValue)[0];
-    const value = Object.values(newValue)[0];
+    const [key, value] = Object.entries(newValue)[0];
     country[key] = value;
 
     return this.countriesService.updateCountry(country).pipe(
-      tap(() => patchState({ [alpha2Code]: country }))
+      tap(({ body }: HttpResponse<Country>) => patchState({ [body.alpha2Code]: body }))
     );
 
   }
