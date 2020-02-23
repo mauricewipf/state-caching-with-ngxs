@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../product';
+import { Country } from '../country';
 
 @Component({
   selector: 'app-latest-fetched-country',
@@ -7,7 +7,7 @@ import { Product } from '../product';
   styleUrls: ['./latest-fetched-country.component.css']
 })
 export class LatestFetchedCountryComponent {
-  @Input() country: Product;
+  @Input() country: Country;
 
   constructor() { }
 

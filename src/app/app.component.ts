@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { ProductsState, GetCountryCodes, GetProductById } from './products-state';
-import { Product } from './product';
+import { CountriesState, GetCountryCodes, GetCountryById } from './countries-state';
+import { Country } from './country';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  products$: Observable<Product[]>;
+  countries$: Observable<Country[]>;
   countryCodes$: Observable<string[]>;
-  latestFetchedCountry$: Observable<Product>;
+  latestFetchedCountry$: Observable<Country>;
 
   constructor(
     private store: Store
@@ -21,12 +21,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.products$ = this.store.select<Product[]>(ProductsState.getProducts());
-    this.countryCodes$ = this.store.select(ProductsState.getCountryCodes());
+    this.countries$ = this.store.select<Country[]>(CountriesState.getCountries());
+    this.countryCodes$ = this.store.select(CountriesState.getCountryCodes());
   }
 
   countryCodeClicked(alpha2Code: string) {
-    this.store.dispatch(new GetProductById(alpha2Code));
-    this.latestFetchedCountry$ = this.store.select(ProductsState.getProductById(alpha2Code));
+    this.store.dispatch(new GetCountryById(alpha2Code));
+    this.latestFetchedCountry$ = this.store.select(CountriesState.getCountryById(alpha2Code));
   }
 }

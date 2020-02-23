@@ -1,4 +1,4 @@
-export class Product {
+export class Country {
   constructor(
     public alpha2Code: string,
     public name: string,

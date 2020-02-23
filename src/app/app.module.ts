@@ -3,16 +3,16 @@ import { NgModule } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './product-list/product-list.component';
+import { CountryListComponent } from './country-list/country-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductsState } from './products-state';
+import { CountriesState } from './countries-state';
 import { CountrycodeListComponent } from './countrycode-list/countrycode-list.component';
 import { LatestFetchedCountryComponent } from './latest-fetched-country/latest-fetched-country.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
+    CountryListComponent,
     CountrycodeListComponent,
     LatestFetchedCountryComponent
   ],
@@ -20,7 +20,7 @@ import { LatestFetchedCountryComponent } from './latest-fetched-country/latest-f
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxsModule.forRoot([ProductsState])
+    NgxsModule.forRoot([CountriesState])
   ],
   providers: [],
   bootstrap: [AppComponent]
