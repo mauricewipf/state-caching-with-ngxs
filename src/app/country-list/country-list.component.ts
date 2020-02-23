@@ -1,6 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
-import { GetCountries, CountriesState, GetCountryById } from '../countries-state';
+import { Component, Input } from '@angular/core';
 import { Country } from '../country';
 
 @Component({
@@ -14,4 +12,4 @@ export class CountryListComponent {
   constructor() {
   }
 
-} 
+}
