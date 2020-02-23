@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Country } from './country';
 import { HttpResponse } from '@angular/common/http';
+import { patch } from '@ngxs/store/operators';
 
 export class CountriesStateModel {
   countries: { [key: string]: Country };
@@ -94,21 +95,21 @@ export class CountriesState {
 
   @Action(GetCountryById)
   getCountryById(
-    { getState, patchState }: StateContext<CountriesStateModel>,
+    { getState, setState }: StateContext<CountriesStateModel>,
     { id }: GetCountryById
   ): Observable<any> {
     const countries = getState().countries;
 
     if (!!countries && !!countries[id]) {
-      patchState({
-        countries: {
-          ...countries,
-          [id]: {
-            ...countries[id],
-            isFetchedFromState: true
-          }
-        }
-      });
+      setState(
+        patch({
+          countries: patch({
+            [id]: patch({
+              isFetchedFromState: true
+            })
+          })
+        })
+      );
       return;
     }
 
