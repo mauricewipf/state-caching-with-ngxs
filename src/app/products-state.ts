@@ -45,15 +45,15 @@ export class ProductsState {
     { getState, patchState }: StateContext<ProductsStateModel>,
     { }: GetProducts
   ): Observable<Product[]> {
-    const _products = getState();
+    const products = getState();
 
-    if (!!_products[0]) {
+    if (!!products[0]) {
       return;
     }
 
     return this.productsService.getProducts().pipe(
-      tap((products: Product[]) => {
-        products.forEach((product: Product) => patchState({ [product.alpha2Code]: product }));
+      tap((responseProducts: Product[]) => {
+        responseProducts.forEach((product: Product) => patchState({ [product.alpha2Code]: product }));
       })
     );
   }
