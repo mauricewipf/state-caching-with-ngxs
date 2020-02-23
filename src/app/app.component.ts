@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from './products.service';
+import { Store } from '@ngxs/store';
+import { GetProducts, ProductsState } from './products-state';
+import { Product } from './product';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +11,16 @@ import { ProductsService } from './products.service';
 })
 export class AppComponent implements OnInit {
   title = 'state-caching';
+  products$: Observable<Product[]>;
 
   constructor(
+    private store: Store
   ) {
-
+    this.store.dispatch(new GetProducts());
   }
 
   ngOnInit() {
+    this.products$ = this.store.select(ProductsState.getProducts());
   }
 
 }
