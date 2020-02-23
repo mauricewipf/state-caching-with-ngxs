@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { GetProducts, ProductsState, GetCountryCodes } from './products-state';
+import { ProductsState, GetCountryCodes, GetProductById } from './products-state';
 import { Product } from './product';
 import { Observable } from 'rxjs';
 
@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   constructor(
     private store: Store
   ) {
-    this.store.dispatch(new GetProducts());
     this.store.dispatch(new GetCountryCodes());
   }
 
@@ -25,4 +24,7 @@ export class AppComponent implements OnInit {
     this.countryCodes$ = this.store.select(ProductsState.getCountryCodes());
   }
 
+  countryCodeClicked(alpha2Code: string) {
+    this.store.dispatch(new GetProductById(alpha2Code));
+  }
 }

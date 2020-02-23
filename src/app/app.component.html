@@ -4,10 +4,9 @@
   </h1>
 </div>
 
-<app-product-list [products]="(products$ | async)"></app-product-list>
+<app-countrycode-list [countryCodes]="(countryCodes$ | async)" (countryCodeClicked)="countryCodeClicked($event)">
+</app-countrycode-list>
 
-<span *ngFor="let countryCode of (countryCodes$ | async)">
-  {{countryCode}}
-</span>
+<app-product-list [products]="(products$ | async)"></app-product-list>
 
 <router-outlet></router-outlet>

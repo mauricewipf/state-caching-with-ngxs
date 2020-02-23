@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  flex-flow: row wrap;
+  padding-bottom: 25px;
+}
+
+a {
+  padding-right: 10px;
+}

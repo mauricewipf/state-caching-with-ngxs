@@ -95,7 +95,12 @@ export class ProductsState {
 
     return this.productsService.getProductById(id).pipe(
       tap((product: Product) => {
-        patchState({ products: { [id]: product } });
+        patchState({
+          products: {
+            ...products,
+            [id]: product,
+          }
+        });
       })
     );
   }
