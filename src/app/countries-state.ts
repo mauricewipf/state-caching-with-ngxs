@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { Country } from './country';
 import { HttpResponse } from '@angular/common/http';
 import { patch } from '@ngxs/store/operators';
+import { Injectable } from '@angular/core';
 
 export class CountriesStateModel {
   countries: { [key: string]: Country };
@@ -45,6 +46,7 @@ export class UpdateCountry {
     alpha2Codes: []
   }
 })
+@Injectable()
 export class CountriesState {
   constructor(private countriesService: CountriesService) { }
 
