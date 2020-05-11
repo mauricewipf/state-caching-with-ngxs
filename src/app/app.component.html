@@ -10,7 +10,7 @@
 <app-latest-fetched-country [country]="(latestFetchedCountry$ | async)" (updateCountry)="updateCountry($event)">
 </app-latest-fetched-country>
 
-<app-country-list [countries]="(countries$ | async)">
+<app-country-list [countries$]="countries$">
 </app-country-list>
 
 <router-outlet></router-outlet>

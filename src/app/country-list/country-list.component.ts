@@ -1,5 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Country } from '../country';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-country-list',
@@ -8,7 +9,7 @@ import { Country } from '../country';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountryListComponent {
-  @Input() countries: Country[];
+  @Input() countries$: Observable<Country[]>;
 
   constructor() {
   }
