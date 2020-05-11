@@ -1,7 +1,7 @@
 import { State, Action, StateContext, createSelector } from '@ngxs/store';
 import { CountriesService } from './countries.service';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map, mergeMap } from 'rxjs/operators';
 import { Country } from './country';
 import { HttpResponse } from '@angular/common/http';
 import { patch } from '@ngxs/store/operators';
@@ -153,22 +153,31 @@ export class CountriesState {
   }
 
   @Action(UpdateCountry)
-  async updateCountry(
-    { getState, patchState, dispatch }: StateContext<CountriesStateModel>,
+  updateCountry(
+    { getState, setState, dispatch }: StateContext<CountriesStateModel>,
     { alpha2Code, newValue }: UpdateCountry
-  ) {
-    let country: Country;
+  ): Observable<any> {
 
-    await dispatch(new GetCountryById(alpha2Code)).toPromise().then(() => {
-      country = getState().countries[alpha2Code];
-    });
-
-    const [key, value] = Object.entries(newValue)[0];
-    country[key] = value;
-
-    return this.countriesService.updateCountry(country).pipe(
-      tap(({ body }: HttpResponse<Country>) => patchState({ [body.alpha2Code]: body }))
-    );
+    return dispatch(new GetCountryById(alpha2Code)).pipe(
+      map(() => {
+        return { ...getState().countries[alpha2Code] }
+      }),
+      map((country: Country) => {
+        const [key, value] = Object.entries(newValue)[0];
+        country[key] = value
+        return country;
+      }),
+      mergeMap((country: Country) => this.countriesService.updateCountry(country)),
+      tap(({ body }: HttpResponse<Country>) => {
+        setState(
+          patch({
+            countries: patch({
+              [body.alpha2Code]: body
+            })
+          })
+        )
+      })
+    )
 
   }
 }
