@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CountriesState } from './countries-state';
 import { CountrycodeListComponent } from './countrycode-list/countrycode-list.component';
 import { LatestFetchedCountryComponent } from './latest-fetched-country/latest-fetched-country.component';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LatestFetchedCountryComponent } from './latest-fetched-country/latest-f
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxsModule.forRoot([CountriesState])
+    NgxsModule.forRoot([CountriesState]),
+    NgxsReduxDevtoolsPluginModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
