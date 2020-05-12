@@ -160,7 +160,7 @@ export class CountriesState {
 
     return dispatch(new GetCountryById(alpha2Code)).pipe(
       map(() => {
-        return { ...getState().countries[alpha2Code] }
+        return { ...getState().countries[alpha2Code] };
       }),
       map((country: Country) => {
         const [key, value] = Object.entries(newValue)[0];
