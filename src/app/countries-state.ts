@@ -164,7 +164,7 @@ export class CountriesState {
       }),
       map((country: Country) => {
         const [key, value] = Object.entries(newValue)[0];
-        country[key] = value
+        country[key] = value;
         return country;
       }),
       mergeMap((country: Country) => this.countriesService.updateCountry(country)),
@@ -175,9 +175,9 @@ export class CountriesState {
               [body.alpha2Code]: body
             })
           })
-        )
+        );
       })
-    )
+    );
 
   }
 }
